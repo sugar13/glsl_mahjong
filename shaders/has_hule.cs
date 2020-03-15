@@ -154,11 +154,6 @@ uint has_hule(uint tile_n, uint fulu_n, const uint tiles[SHOUPAI_N],
         }
     }
 
-    if (tmp_num < 14 - 3 * fulu_n)
-    {
-        return 0;
-    }
-
     // 判断一般形
     const uint SET_KEZI = 0;
     const uint SET_DUIZI = 1;
