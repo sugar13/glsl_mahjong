@@ -788,33 +788,30 @@ uint has_hule(uint tile_n, uint fulu_n, const uint tiles[SHOUPAI_N],
 
 
     // 判断七对子，使用临时牌做判断
-    if (tmp_num >= 14)
+    tile = NO_TILE;
+    uint duizi_n = 0;
+    for (uint i = 1; i < tmp_num; i++)
     {
-        tile = NO_TILE;
-        uint duizi_n = 0;
-        for (uint i = 0; i < tmp_num - 1; i++)
+        if (tmp_tiles[i - 1] != tmp_tiles[i]) // 每两张一组，这一组不是对子
         {
-            if (tmp_tiles[i + 1] != tmp_tiles[i]) // 每两张一组，这一组不是对子
-            {
-                continue;
-            }
+            continue;
+        }
 
-            if (tmp_tiles[i] == tile) // 这张牌和上一组对子是重复的牌
-            {
-                continue;
-            }
+        if (tmp_tiles[i] == tile) // 这张牌和上一组对子是重复的牌
+        {
+            continue;
+        }
 
-            tile = tmp_tiles[i];
-            out_hupai[2 * duizi_n + 0] = tile;
-            out_hupai[2 * duizi_n + 1] = tile;
-            duizi_n++;
+        tile = tmp_tiles[i];
+        out_hupai[2 * duizi_n + 0] = tile;
+        out_hupai[2 * duizi_n + 1] = tile;
+        duizi_n++;
 
-            // 完成七对子
-            if (duizi_n == 7)
-            {
-                out_paixing[0] = PAIXING_QIDUI;
-                return 1;
-            }
+        // 完成七对子
+        if (duizi_n == 7)
+        {
+            out_paixing[0] = PAIXING_QIDUI;
+            return 1;
         }
     }
 
