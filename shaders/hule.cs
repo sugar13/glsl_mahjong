@@ -27,25 +27,25 @@ const uint TILE_7M = 0x17; // 七萬 🀍
 const uint TILE_8M = 0x18; // 八萬 🀎
 const uint TILE_9M = 0x19; // 九萬 🀏
 
-const uint TILE_1S = 0x21; // 一索 🀐
-const uint TILE_2S = 0x22; // 二索 🀑
-const uint TILE_3S = 0x23; // 三索 🀒
-const uint TILE_4S = 0x24; // 四索 🀓
-const uint TILE_5S = 0x25; // 五索 🀔
-const uint TILE_6S = 0x26; // 六索 🀕
-const uint TILE_7S = 0x27; // 七索 🀖
-const uint TILE_8S = 0x28; // 八索 🀗
-const uint TILE_9S = 0x29; // 九索 🀘
+const uint TILE_1P = 0x21; // 一筒 🀙
+const uint TILE_2P = 0x22; // 二筒 🀚
+const uint TILE_3P = 0x23; // 三筒 🀛
+const uint TILE_4P = 0x24; // 四筒 🀜
+const uint TILE_5P = 0x25; // 五筒 🀝
+const uint TILE_6P = 0x26; // 六筒 🀞
+const uint TILE_7P = 0x27; // 七筒 🀟
+const uint TILE_8P = 0x28; // 八筒 🀠
+const uint TILE_9P = 0x29; // 九筒 🀡
 
-const uint TILE_1P = 0x31; // 一筒 🀙
-const uint TILE_2P = 0x32; // 二筒 🀚
-const uint TILE_3P = 0x33; // 三筒 🀛
-const uint TILE_4P = 0x34; // 四筒 🀜
-const uint TILE_5P = 0x35; // 五筒 🀝
-const uint TILE_6P = 0x36; // 六筒 🀞
-const uint TILE_7P = 0x37; // 七筒 🀟
-const uint TILE_8P = 0x38; // 八筒 🀠
-const uint TILE_9P = 0x39; // 九筒 🀡
+const uint TILE_1S = 0x31; // 一索 🀐
+const uint TILE_2S = 0x32; // 二索 🀑
+const uint TILE_3S = 0x33; // 三索 🀒
+const uint TILE_4S = 0x34; // 四索 🀓
+const uint TILE_5S = 0x35; // 五索 🀔
+const uint TILE_6S = 0x36; // 六索 🀕
+const uint TILE_7S = 0x37; // 七索 🀖
+const uint TILE_8S = 0x38; // 八索 🀗
+const uint TILE_9S = 0x39; // 九索 🀘
 
 const uint TILE_1Z = 0x41; // 東 🀀
 const uint TILE_2Z = 0x49; // 南 🀁
@@ -56,15 +56,15 @@ const uint TILE_6Z = 0x69; // 發 🀅
 const uint TILE_7Z = 0x71; // 中 🀄
 
 const uint TILE_0M = 0x95; // 赤五萬 🀋
-const uint TILE_0S = 0xA5; // 赤五索 🀔
-const uint TILE_0P = 0xB5; // 赤五筒 🀝
+const uint TILE_0P = 0xA5; // 赤五筒 🀝
+const uint TILE_0S = 0xB5; // 赤五索 🀔
 
 // 一萬 🀇 -> 0x1000 
 // 九萬 🀏 -> 0x0800
-// 一索 🀐 -> 0x0400
-// 九索 🀘 -> 0x0200
-// 一筒 🀙 -> 0x0100
-// 九筒 🀡 -> 0x0080
+// 一筒 🀙 -> 0x0400
+// 九筒 🀡 -> 0x0200
+// 一索 🀐 -> 0x0100
+// 九索 🀘 -> 0x0080
 // 東 🀀 -> 0x0040
 // 南 🀁 -> 0x0020
 // 西 🀂 -> 0x0010
@@ -545,13 +545,13 @@ uint is_hule(uint tile_num, uint[14] tiles)
         {
             tiles[i] = TILE_5M;
         }
-        else if (tiles[i] == TILE_0S)
-        {
-            tiles[i] = TILE_5S;
-        }
         else if (tiles[i] == TILE_0P)
         {
             tiles[i] = TILE_5P;
+        }
+        else if (tiles[i] == TILE_0S)
+        {
+            tiles[i] = TILE_5S;
         }
     }
 

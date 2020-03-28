@@ -21,25 +21,25 @@ const uint TILE_7M = 0x17; // 七萬 🀍
 const uint TILE_8M = 0x18; // 八萬 🀎
 const uint TILE_9M = 0x19; // 九萬 🀏
 
-const uint TILE_1S = 0x21; // 一索 🀐
-const uint TILE_2S = 0x22; // 二索 🀑
-const uint TILE_3S = 0x23; // 三索 🀒
-const uint TILE_4S = 0x24; // 四索 🀓
-const uint TILE_5S = 0x25; // 五索 🀔
-const uint TILE_6S = 0x26; // 六索 🀕
-const uint TILE_7S = 0x27; // 七索 🀖
-const uint TILE_8S = 0x28; // 八索 🀗
-const uint TILE_9S = 0x29; // 九索 🀘
+const uint TILE_1P = 0x21; // 一筒 🀙
+const uint TILE_2P = 0x22; // 二筒 🀚
+const uint TILE_3P = 0x23; // 三筒 🀛
+const uint TILE_4P = 0x24; // 四筒 🀜
+const uint TILE_5P = 0x25; // 五筒 🀝
+const uint TILE_6P = 0x26; // 六筒 🀞
+const uint TILE_7P = 0x27; // 七筒 🀟
+const uint TILE_8P = 0x28; // 八筒 🀠
+const uint TILE_9P = 0x29; // 九筒 🀡
 
-const uint TILE_1P = 0x31; // 一筒 🀙
-const uint TILE_2P = 0x32; // 二筒 🀚
-const uint TILE_3P = 0x33; // 三筒 🀛
-const uint TILE_4P = 0x34; // 四筒 🀜
-const uint TILE_5P = 0x35; // 五筒 🀝
-const uint TILE_6P = 0x36; // 六筒 🀞
-const uint TILE_7P = 0x37; // 七筒 🀟
-const uint TILE_8P = 0x38; // 八筒 🀠
-const uint TILE_9P = 0x39; // 九筒 🀡
+const uint TILE_1S = 0x31; // 一索 🀐
+const uint TILE_2S = 0x32; // 二索 🀑
+const uint TILE_3S = 0x33; // 三索 🀒
+const uint TILE_4S = 0x34; // 四索 🀓
+const uint TILE_5S = 0x35; // 五索 🀔
+const uint TILE_6S = 0x36; // 六索 🀕
+const uint TILE_7S = 0x37; // 七索 🀖
+const uint TILE_8S = 0x38; // 八索 🀗
+const uint TILE_9S = 0x39; // 九索 🀘
 
 const uint TILE_1Z = 0x41; // 東 🀀
 const uint TILE_2Z = 0x49; // 南 🀁
@@ -50,8 +50,8 @@ const uint TILE_6Z = 0x69; // 發 🀅
 const uint TILE_7Z = 0x71; // 中 🀄
 
 const uint TILE_0M = 0x95; // 赤五萬 🀋
-const uint TILE_0S = 0xA5; // 赤五索 🀔
-const uint TILE_0P = 0xB5; // 赤五筒 🀝
+const uint TILE_0P = 0xA5; // 赤五筒 🀝
+const uint TILE_0S = 0xB5; // 赤五索 🀔
 
 uint has_hule(uint tile_n, uint fulu_n, const uint tiles[SHOUPAI_N],
     out uint out_paixing[1], out uint out_hupai[14])
@@ -63,8 +63,8 @@ uint has_hule(uint tile_n, uint fulu_n, const uint tiles[SHOUPAI_N],
 
     // 移除孤立的牌，仅适用于一般形和七对子
     uint manzu_mask = 0; // 万子 (マンズ)
-    uint souzu_mask = 0; // 索子 (ソウズ)
     uint pinzu_mask = 0; // 筒子 (ピンズ)
+    uint souzu_mask = 0; // 索子 (ソウズ)
     for (uint i = 0; i < tile_n; i++)
     {
         tile = tiles[i];
@@ -72,13 +72,13 @@ uint has_hule(uint tile_n, uint fulu_n, const uint tiles[SHOUPAI_N],
         {
             manzu_mask |= 0x100 >> (tile - TILE_1M);
         }
-        else if (tile >= TILE_1S && tile <= TILE_9S)
-        {
-            souzu_mask |= 0x100 >> (tile - TILE_1S);
-        }
         else if (tile >= TILE_1P && tile <= TILE_9P)
         {
             pinzu_mask |= 0x100 >> (tile - TILE_1P);
+        }
+        else if (tile >= TILE_1S && tile <= TILE_9S)
+        {
+            souzu_mask |= 0x100 >> (tile - TILE_1S);
         }
     }
 
@@ -122,20 +122,20 @@ uint has_hule(uint tile_n, uint fulu_n, const uint tiles[SHOUPAI_N],
                     continue;
                 }
             }
-            else if (tile >= TILE_1S && tile <= TILE_9S)
-            {
-                if ((souzu_mask & (0x240 >> (tile - TILE_1S))) == 0 ||
-                    (souzu_mask & (0x280 >> (tile - TILE_1S))) == 0 ||
-                    (souzu_mask & (0x480 >> (tile - TILE_1S))) == 0)
-                {
-                    continue;
-                }
-            }
             else if (tile >= TILE_1P && tile <= TILE_9P)
             {
                 if ((pinzu_mask & (0x240 >> (tile - TILE_1P))) == 0 ||
                     (pinzu_mask & (0x280 >> (tile - TILE_1P))) == 0 ||
                     (pinzu_mask & (0x480 >> (tile - TILE_1P))) == 0)
+                {
+                    continue;
+                }
+            }
+            else if (tile >= TILE_1S && tile <= TILE_9S)
+            {
+                if ((souzu_mask & (0x240 >> (tile - TILE_1S))) == 0 ||
+                    (souzu_mask & (0x280 >> (tile - TILE_1S))) == 0 ||
+                    (souzu_mask & (0x480 >> (tile - TILE_1S))) == 0)
                 {
                     continue;
                 }
@@ -826,10 +826,10 @@ uint has_hule(uint tile_n, uint fulu_n, const uint tiles[SHOUPAI_N],
 
         // TILE_1M -> 0x11 ->  0x2 -> 0x1000 🀇 一萬
         // TILE_9M -> 0x19 ->  0x3 -> 0x0800 🀏 九萬
-        // TILE_1S -> 0x21 ->  0x4 -> 0x0400 🀐 一索
-        // TILE_9S -> 0x29 ->  0x5 -> 0x0200 🀘 九索
-        // TILE_1P -> 0x31 ->  0x6 -> 0x0100 🀙 一筒
-        // TILE_9P -> 0x39 ->  0x7 -> 0x0080 🀡 九筒
+        // TILE_1P -> 0x21 ->  0x4 -> 0x0100 🀙 一筒
+        // TILE_9P -> 0x29 ->  0x5 -> 0x0080 🀡 九筒
+        // TILE_1S -> 0x31 ->  0x6 -> 0x0400 🀐 一索
+        // TILE_9S -> 0x39 ->  0x7 -> 0x0200 🀘 九索
         // TILE_1Z -> 0x41 ->  0x8 -> 0x0040 🀀 東
         // TILE_2Z -> 0x49 ->  0x9 -> 0x0020 🀁 南
         // TILE_3Z -> 0x51 ->  0xA -> 0x0010 🀂 西
