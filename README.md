@@ -59,7 +59,7 @@ Intel显卡则存在shared变量无法在定义时初始化的问题，因此需
 和牌判断的着色器代码见“shaders/hule.cs”，负责运行该着色器的C++语言的代码见“src/hule.cc”。
 后续会使用状态机彻底解除递归。
 
-## 计算配牌向听数
+## 配牌向听数
 
 这里的向听数，暂时不考虑宝牌指示牌、牌河、副露、暗杠等公开情报，这些公开情报会降低摸到某些牌的概率。
 不考虑公开情报时，由于有七对子保底六向听，因此向听数不会大于6。
@@ -157,3 +157,22 @@ Intel显卡则存在shared变量无法在定义时初始化的问题，因此需
 若以上三类全部判断失败，则表示未和牌。
 
 新的和牌判断函数暂时命名为“含有和了”，其着色器代码见“shaders/has_hule.cs”，负责运行该着色器的C++语言的代码见“src/has_hule.cc”。
+
+## 计算配牌向听数
+
+通过“含有和了”的判断，就可以用穷举法进行向听数的计算了。计算向听数需要一个公共模块和若干个独立的着色器程序，如下：
+
+    shaders/common.cs
+    shaders/tianhu.cs
+    shaders/tingpai.cs
+    shaders/xiangting1.cs
+    shaders/xiangting2.cs
+    shaders/xiangting3.cs
+    shaders/xiangting4.cs
+    shaders/xiangting5.cs
+    shaders/xiangting6.cs
+
+其中，shaders/common.cs是公共模块；
+shaders/tianhu.cs需要1个工作组，shaders/tingpai.cs需要34个工作组，shaders/xiangting1.cs需要595个工作组；
+二向听以上，就需要将所有的重复组合数分担到1024个工作组中了。
+负责运行这些着色器的C++语言的代码见“src/xiangting.cc”。
