@@ -328,17 +328,17 @@ void clean_rc()
     return;
 }
 
-int read_shoupai(GLuint out_shoupai[20], const char *buf)
+int read_shoupai(GLuint out_shoupai[14], const char *buf)
 {
     int tile_n = 0;
-    unsigned digits[20] = {};
+    unsigned digits[14] = {};
     int num = 0;
     while (1)
     {
         char ch = *buf;
         if (ch >= '1' && ch <= '9')
         {
-            if (tile_n + num >= 20)
+            if (tile_n + num >= 14)
             {
                 return -1;
             }
@@ -404,7 +404,7 @@ int read_shoupai(GLuint out_shoupai[20], const char *buf)
         continue;
     }
 
-    for (int i = tile_n; i < 20; i++)
+    for (int i = tile_n; i < 14; i++)
     {
         out_shoupai[i] = NO_TILE;
     }
